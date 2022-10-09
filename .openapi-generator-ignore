@@ -1,0 +1,14 @@
+./.*
+.*
+
+target/**
+docs/**
+
+src/test/**
+src/main/docker/**
+src/main/resources/**
+
+pom.xml
+README.md
+mvnw
+mvnw.cmd

@@ -1,0 +1,8 @@
+org/openapi/quarkus/api_yaml/model/Publisher$SexEnum.class
+org/openapi/quarkus/api_yaml/api/PublisherApi.class
+org/openapi/quarkus/api_yaml/model/ModelApiResponse.class
+PublisherResource.class
+org/openapi/quarkus/api_yaml/api/auth/AuthenticationPropagationHeadersFactory.class
+org/openapi/quarkus/api_yaml/model/Publisher.class
+org/openapi/quarkus/api_yaml/api/auth/CompositeAuthenticationProvider.class
+org/openapi/quarkus/api_yaml/api/PublisherApi$UpdatePublisherWithFormMultipartForm.class

@@ -1,0 +1,6 @@
+.openapi-generator-ignore
+org/openapi/quarkus/api_yaml/api/PublisherApi.java
+org/openapi/quarkus/api_yaml/api/auth/AuthenticationPropagationHeadersFactory.java
+org/openapi/quarkus/api_yaml/api/auth/CompositeAuthenticationProvider.java
+org/openapi/quarkus/api_yaml/model/ModelApiResponse.java
+org/openapi/quarkus/api_yaml/model/Publisher.java
