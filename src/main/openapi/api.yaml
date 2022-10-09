@@ -1,0 +1,211 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a sample Swagger Congregation Publisher service server.  You can find out more about\
+    \ Swagger at [https://swagger.io](https://swagger.io) or on [irc.freenode.net, #swagger](https://swagger.io/irc/).\
+    \  For this sample, the authorization is just for illustration."
+  version: "1.0.0"
+  title: "Swagger Publisher Service"
+  termsOfService: "https://swagger.io/terms/"
+  contact:
+    email: "apiteam@email.com"
+  license:
+    name: "Apache 2.0"
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost"
+basePath: "/v2"
+tags:
+- name: "publisher"
+  description: "Everything about your Publishers"
+  externalDocs:
+    description: "Find out more"
+    url: "https://swagger.io"
+schemes:
+- "http"
+paths:
+  /publisher:
+    post:
+      tags:
+      - "publisher"
+      summary: "Add a new publisher to the congregation"
+      description: ""
+      operationId: "addPublisher"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Publisher object that needs to be added to the congregation"
+        required: true
+        schema:
+          $ref: "#/definitions/Publisher"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - congregtion_auth:
+        - "write:publishers"
+        - "read:publishers"
+    put:
+      tags:
+      - "publisher"
+      summary: "Update an existing publisher"
+      description: ""
+      operationId: "updatePublisher"
+      consumes:
+      - "application/json"
+      - "application/xml"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Publisher object that needs to be added to the congregation"
+        required: true
+        schema:
+          $ref: "#/definitions/Publisher"
+      responses:
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Publisher not found"
+        405:
+          description: "Validation exception"
+      security:
+      - congregtion_auth:
+        - "write:publishers"
+        - "read:publishers"
+  /publisher/{publisherId}:
+    get:
+      tags:
+      - "publisher"
+      summary: "Find publisher by ID"
+      description: "Returns a single publisher"
+      operationId: "getPublisherById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "publisherId"
+        in: "path"
+        description: "ID of publisher to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Publisher"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "Publisher not found"
+      security:
+      - api_key: []
+    post:
+      tags:
+      - "publisher"
+      summary: "Updates a publisher in the congregation with form data"
+      description: ""
+      operationId: "updatePublisherWithForm"
+      consumes:
+      - "application/x-www-form-urlencoded"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "publisherId"
+        in: "path"
+        description: "ID of publisher that needs to be updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "name"
+        in: "formData"
+        description: "Updated name of the publisher"
+        required: false
+        type: "string"
+      responses:
+        405:
+          description: "Invalid input"
+      security:
+      - petstore_auth:
+        - "write:publishers"
+        - "read:publishers"
+    delete:
+      tags:
+      - "publisher"
+      summary: "Deletes a publisher"
+      description: ""
+      operationId: "deletePublisher"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "publisherId"
+        in: "path"
+        description: "Publisher id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "Invalid publisher value"
+      security:
+      - petstore_auth:
+        - "write:publishers"
+        - "read:publishers"
+securityDefinitions:
+  congregation_auth:
+    type: "oauth2"
+    authorizationUrl: "http://localhost/api/oauth/dialog"
+    flow: "implicit"
+    scopes:
+      write:publishers: "modify publishers in your account"
+      read:publishers: "read your publishers"
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  Publisher:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "Jane Doe"
+      sex:
+        type: string
+        enum:
+          - "M"
+          - "F"
+    xml:
+      name: "Publisher"
+  ModelApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "https://swagger.io"
